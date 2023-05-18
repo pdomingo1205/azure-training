@@ -87,10 +87,12 @@ jobs:
           echo "prevtag=$prevtag" >> $GITHUB_OUTPUT
           echo "line_count=$line_count" >> $GITHUB_OUTPUT
       #Build the application using Maven
-      - uses: ncipollo/release-action@v1
+      - name: Create Github Release
+        uses: ncipollo/release-action@v1
         with:
           name: ${{ env.GITHUB_REF_NAME }}
           tag: ${{ env.GITHUB_REF_NAME }}
           artifacts: "target/exist-web.jar"
           bodyFile: "body.log"
           token: ${{ secrets.GITHUB_TOKEN }}
+          allowUpdates: true
